@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="plethora_challenge:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/plethora_challenge_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="plethora_challenge/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>

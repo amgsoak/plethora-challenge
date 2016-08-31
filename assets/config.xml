@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<QUOTE_CONSTANTS version="0.1">
+    <MATERIAL_PADDING>.1</MATERIAL_PADDING> <!-- Inches -->
+    <MATERIAL_COST>.75</MATERIAL_COST> <!-- Dollars per square inch -->
+    <LASER_SPEED>.5</LASER_SPEED> <!-- Inches per second -->
+    <MACHINE_TIME_COST>.07</MACHINE_TIME_COST> <!-- Dollars per second -->
+</QUOTE_CONSTANTS>
