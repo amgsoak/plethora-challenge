@@ -1,0 +1,1 @@
+java -jar plethora_challenge.jar

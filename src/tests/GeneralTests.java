@@ -19,6 +19,6 @@ public class GeneralTests {
         List<Point> hullPoints = new ArrayList<Point>();
         arc.pushAdditionalVertices(hullPoints, precision);
         hullPoints.add(arc.center);
-        Log.listPoints(hullPoints);
+        Log.dListPoints(hullPoints);
     }
 }

@@ -2,10 +2,9 @@ import algorithms.ActiveAlgs;
 import algorithms.GrahamScan2;
 import algorithms.RotatingCalipers;
 import debug.Log;
-import org.omg.PortableInterceptor.ACTIVE;
-import tests.HullTester;
 import tests.RectTester;
 
+import java.io.Console;
 import java.io.File;
 
 public class Main {
@@ -18,7 +17,7 @@ public class Main {
 
         String configPath = "assets/config.xml";
 
-        Log.debug = true;
+//        Log.debug = true;
 
         // Load config
 //TODO: These should come via commandline arguments
@@ -27,16 +26,26 @@ public class Main {
         Log.dLog(config);
 
 //        runTests();
-//        run();
         runAll();
 
 //        parseEdgesAndVertices(""); // Parse xml input data to vertex/edge data
 //        ArrayList<Vertex> hullVertices = null; // Get hull vertices from vertices/edges
+/*        try {
+            Thread.sleep(4000);
+        } catch(Exception e){}*/
+
+
+        waitForEnter("Operation Complete");
     }
 
-    private static void run() {
-        String dataPath = "assets/input/Rectangle.json";
-        float quote = QuoteGenerator.getQuote(config, dataPath);
+    public static void waitForEnter(String message, Object... args) {
+        Console c = System.console();
+        if (c != null) {
+            if (message != null)
+                c.format(message, args);
+            c.format("\nPress ENTER to quit.\n");
+            c.readLine();
+        }
     }
 
     private static void runAll() {
@@ -45,10 +54,15 @@ public class Main {
         for (File file : files) {
             if (file.isFile()) {
                 String fileName = file.getName();
-                System.out.println("Generating quote for file: " + fileName);
-                QuoteGenerator.getQuote(config, assetsDirPath + fileName);
+                generateQuoteForFile(assetsDirPath + fileName);
             }
         }
+    }
+
+    private static float generateQuoteForFile(String filePath) {
+        Log.separator();
+        Log.log("Generating quote for file: " + filePath);
+        return QuoteGenerator.getQuote(config, filePath);
     }
 
     private static void runTests() {

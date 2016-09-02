@@ -1,5 +1,6 @@
 package tests;
 
+import algorithms.ActiveAlgs;
 import algorithms.ChanHull;
 import algorithms.GrahamScan;
 import algorithms.RotatingCalipers;
@@ -57,8 +58,8 @@ public class HullTester {
     // Test chan hull against simpler graham hull
     private static void test(Point[] points) {
         List<Point> pointList = Arrays.asList(points);
-        List<Point> chanHull = ChanHull.calcHull(pointList);
-        List<Point> grahamHull = GrahamScan.calcHull(pointList);
+        List<Point> chanHull = ActiveAlgs.getConvexHull(pointList);
+        List<Point> grahamHull = ActiveAlgs.getGrahamHull(pointList);
 
         boolean match = compareHulls(grahamHull, chanHull);
 

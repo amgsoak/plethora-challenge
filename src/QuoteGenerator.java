@@ -1,5 +1,4 @@
 import algorithms.ActiveAlgs;
-import algorithms.GrahamScan;
 import debug.Log;
 import models.CircularArc;
 import models.Edge;
@@ -15,7 +14,6 @@ public class QuoteGenerator {
         // Load data
         InputFileData fileData = new InputFileData();
         fileData.load(inputFilePath);
-        Log.dLog(fileData);
 
         // Determine the total time necessary to cut
         double totalTime = 0;
@@ -43,44 +41,48 @@ public class QuoteGenerator {
             edge.pushAdditionalVertices(vertices, .01);
         }
 
-        Log.log("Initial vertices:");
-        Log.listPoints(vertices);
-        Log.separator();
-
 // TODO: Create more tests for graham/chan
 //TODO: Go back to chan hull if time. Needs to match graham hull in tests.
 //        List<Point> hullVertices = ChanHull.calcHull(vertices);
-        List<Point> hullVertices = GrahamScan.calcHull(vertices);
-        Log.log("Hull vertices:");
-        Log.listPoints(hullVertices);
-        Log.separator();
+        List<Point> hullVertices = ActiveAlgs.getGrahamHull(vertices);
 
         // Determine the size of the rectangle necessary to bound the hull in its most efficient orientation
         Point[] rect = ActiveAlgs.getMinimumBoundingRectangle(hullVertices); // 4 elements
 
-        System.out.println("Bounding Rect Points: " + Arrays.toString(rect));
-
         double width = rect[0].getDistTo(rect[1]);
         double height = rect[1].getDistTo(rect[2]);
         double area = width * height;
-        Log.log("Bounding Rect Width: " + width + " Height: " + height + " Area: " + area);
 
-        width += config.materialPadding;
-        height += config.materialPadding;
-        area = width * height;
-        Log.log("Padded Rect Width: " + width + " Height: " + height + " Area: " + area);
+        double paddedWidth = width + config.materialPadding;
+        double paddedHeight = height + config.materialPadding;
+        double paddedArea = paddedWidth * paddedHeight;
 
-        Log.log("Total time: " + totalTime);
-
-        // Determine costs
         double timeCost = totalTime * config.machineTimeCost;
-        double materialCost = area * config.materialCost;
+        double materialCost = paddedArea * config.materialCost;
         double totalCost = timeCost + materialCost;
         float finalCost = roundMoney(totalCost);
+
+        // Print intermediate data and results
+        Log.dLog("File data:");
+        Log.dLog(fileData);
+
+        Log.dLog("Initial vertices:");
+        Log.dListPoints(vertices);
+        Log.dLog();
+
+        Log.dLog("Hull vertices:");
+        Log.dListPoints(hullVertices);
+        Log.dLog();
+
+        Log.log("Bounding Rect Width: " + width + " Height: " + height + " Area: " + area);
+        Log.log("Padded Rect Width: " + paddedWidth + " Height: " + paddedHeight + " Area: " + paddedArea);
+        Log.log("Total time: " + totalTime);
+        Log.log();
 
         Log.log("Time cost: " + timeCost);
         Log.log("Material cost: " + materialCost);
         Log.log("Total cost: " + totalCost);
+        Log.log("-------------------------------------");
         Log.log("Final cost: " + finalCost);
 
         return finalCost;

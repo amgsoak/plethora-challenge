@@ -43,10 +43,10 @@ public class CircularArc extends Edge {
         double startAngle = angleOfPointOnCircle(startPoint);
         double endAngle = angleOfPointOnCircle(endPoint);
         if (endAngle > startAngle) endAngle -= 2*Math.PI;
-        Log.log(angleIncrement + " " + startAngle + " " + endAngle);
+//        Log.log(angleIncrement + " " + startAngle + " " + endAngle);
         for (double i = startAngle - angleIncrement; i > endAngle; i -= angleIncrement) {
             Point p = new Point(center.x + Math.cos(i)*radius, center.y + Math.sin(i)*radius);
-            Log.log("Arc point: " + p);
+            Log.dLog("Arc point: " + p);
             vertices.add(p);
         }
     }

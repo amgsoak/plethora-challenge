@@ -21,16 +21,28 @@ public class Log {
     }
 
     public static void separator() {
-        log("=============");
         log("");
+        log("=============");
+    }
+
+    public static void dSeparator() {
+        if (debug) separator();
     }
 
     public static void log(Object msg) {
         System.out.println(msg);
     }
 
+    public static void log() {
+        System.out.println("");
+    }
+
     public static void dLog(Object msg) {
         if (debug) log(msg);
+    }
+
+    public static void dLog() {
+        if (debug) log();
     }
 
     public static String toString(Object obj) {
@@ -52,9 +64,7 @@ public class Log {
                 result.append(": ");
                 //requires access to private field:
                 result.append( field.get(obj) );
-            } catch ( IllegalAccessException ex ) {
-                System.out.println(ex);
-            }
+            } catch ( IllegalAccessException ex ) {}
             result.append(newLine);
         }
         result.append("}");
@@ -62,9 +72,10 @@ public class Log {
         return result.toString();
     }
 
-    public static void listPoints(List<Point> points) {
+    public static void dListPoints(List<Point> points) {
+        if (!debug) return;
         for (Point point : points) {
-            System.out.println(point.x + "," + point.y);
+            Log.dLog(point.x + "," + point.y);
         }
     }
 }

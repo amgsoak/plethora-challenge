@@ -76,7 +76,7 @@ public class ChanHull {
         // Do a graham calcHull of each subList, and collect all hull points
         List<List<Point>> hulls = new ArrayList();
         for (int i = 0; i < r; i++) {
-            hulls.add(GrahamScan.calcHull(subLists.get(i)));
+            hulls.add(ActiveAlgs.getGrahamHull(subLists.get(i)));
         }
 
         // Find the bottom left point
