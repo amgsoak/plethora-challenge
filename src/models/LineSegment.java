@@ -17,10 +17,5 @@ public class LineSegment extends Edge {
     public double getLength() {
         return v1.getDistTo(v2);
     }
-
-    public void pushHullVertices(List<Point> vertices, double precision) {
-        vertices.add(v1);
-        vertices.add(v2);
-    }
 }
 

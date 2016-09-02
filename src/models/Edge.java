@@ -22,5 +22,6 @@ public abstract class Edge {
         return Log.toString(this);
     }
 
-    public abstract void pushHullVertices(List<Point> vertices, double precision);
+    // Add non-endpoint vertices that should be included in the set
+    public void pushAdditionalVertices(List<Point> vertices, double precision) { return; }
 }

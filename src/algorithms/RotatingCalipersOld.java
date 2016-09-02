@@ -10,7 +10,7 @@ public class RotatingCalipersOld {
         Rectangle rect = new Rectangle();
         rect.U[0] = vertices.get(j1).minus(vertices.get(j0));
         rect.U[0].normalize();
-        rect.U[1] = rect.U[0].getCCWPerpendicular();
+        rect.U[1] = rect.U[0].getCWPerpendicular();
         rect.index = new int[]{j1, j1, j1 ,j1};
         Point origin = vertices.get(j1);
         Point[] support = new Point[]{Point.ORIGIN, Point.ORIGIN, Point.ORIGIN, Point.ORIGIN};

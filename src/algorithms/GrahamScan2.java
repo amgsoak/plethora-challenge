@@ -29,7 +29,7 @@ import models.Point;
 
 import java.util.*;
 
-public final class GrahamScan2 {
+public final class GrahamScan2 implements IHullGenerator {
 
     /**
      * An enum denoting a directional-turn between 3 points (vectors).
@@ -42,7 +42,7 @@ public final class GrahamScan2 {
      * @param points the list of points.
      * @return       true iff all points in <code>points</code> are collinear.
      */
-    protected static boolean areAllCollinear(List<Point> points) {
+    protected boolean areAllCollinear(List<Point> points) {
 
         if(points.size() < 2) {
             return true;
@@ -77,7 +77,7 @@ public final class GrahamScan2 {
      *                                  are collinear or if there are less than
      *                                  3 unique points present.
      */
-    public static List<Point> getConvexHull(int[] xs, int[] ys) throws IllegalArgumentException {
+    public List<Point> getConvexHull(int[] xs, int[] ys) throws IllegalArgumentException {
 
         if(xs.length != ys.length) {
             throw new IllegalArgumentException("xs and ys don't have the same size");
@@ -104,7 +104,7 @@ public final class GrahamScan2 {
      * @throws IllegalArgumentException if all points are collinear or if there
      *                                  are less than 3 unique points present.
      */
-    public static List<Point> getConvexHull(List<Point> points) throws IllegalArgumentException {
+    public List<Point> getConvexHull(List<Point> points) throws IllegalArgumentException {
 
         List<Point> sorted = new ArrayList<Point>(getSortedPointSet(points));
 
@@ -157,7 +157,7 @@ public final class GrahamScan2 {
      *               1 such point exists, the one with the lowest x coordinate
      *               is returned.
      */
-    protected static Point getLowestPoint(List<Point> points) {
+    protected Point getLowestPoint(List<Point> points) {
 
         Point lowest = points.get(0);
 
@@ -183,7 +183,7 @@ public final class GrahamScan2 {
      * @param points the list of points to sort.
      * @return       a sorted set of points from the list <code>points</code>.
      */
-    protected static Set<Point> getSortedPointSet(List<Point> points) {
+    protected Set<Point> getSortedPointSet(List<Point> points) {
 
         final Point lowest = getLowestPoint(points);
 
@@ -248,7 +248,7 @@ public final class GrahamScan2 {
      *         ordered points <code>a</code>, <code>b</code> and
      *         <code>c</code>.
      */
-    protected static Turn getTurn(Point a, Point b, Point c) {
+    protected Turn getTurn(Point a, Point b, Point c) {
 
         // use longs to guard against int-over/underflow
         double crossProduct = ((b.x - a.x) * (c.y - a.y)) -

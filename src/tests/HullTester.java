@@ -38,19 +38,30 @@ public class HullTester {
         );
     }
 
+    /**
+     * Returns true only if the point sets contain equal points in the same order
+     * @param h1
+     * @param h2
+     * @return
+     */
+    public static boolean compareHulls(List<Point> h1, List<Point> h2) {
+        if (h1.size() != h2.size()) return false;
+        for (int i = 0; i < h1.size(); i++) {
+            if (!h1.get(i).equals(h2.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Test chan hull against simpler graham hull
     private static void test(Point[] points) {
         List<Point> pointList = Arrays.asList(points);
         List<Point> chanHull = ChanHull.calcHull(pointList);
         List<Point> grahamHull = GrahamScan.calcHull(pointList);
 
-        boolean match = chanHull.size() == grahamHull.size();
-        if (match) {
-            for (int i = 0; i < chanHull.size(); i++) {
-                match = chanHull.get(i).equals(grahamHull.get(i));
-                if (!match) break;
-            }
-        }
+        boolean match = compareHulls(grahamHull, chanHull);
+
         if (match) {
             System.out.println("Matched hulls: " + chanHull);
             System.out.println("");
@@ -60,11 +71,5 @@ public class HullTester {
             System.out.println("Graham hull: " + grahamHull);
             System.out.println("");
         }
-
-    }
-
-    // Callipers should provide the same minimum rect size, regardless of the orientation of the points supplied
-    private static void testCallipers() {
-        //RotatingCalipers calipers = new RotatingCalipers();
     }
 }

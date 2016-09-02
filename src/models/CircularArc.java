@@ -1,5 +1,7 @@
 package models;
 
+import debug.Log;
+
 import java.util.List;
 
 public class CircularArc extends Edge {
@@ -31,9 +33,7 @@ public class CircularArc extends Edge {
 //        return Math.acos(1 - distSquared/(2* radius * radius));
     }
 
-    public void pushHullVertices(List<Point> vertices, double precision) {
-        vertices.add(startPoint);
-        vertices.add(endPoint);
+    public void pushAdditionalVertices(List<Point> vertices, double precision) {
         // Push approximation of outer edge of arc
         // Determine angle increment necessary to ensure the point-based approximation
         // of the arc is never off by more than the value of the precision
@@ -42,11 +42,11 @@ public class CircularArc extends Edge {
         Point origin = new Point(center.x + radius, center.y);
         double startAngle = angleOfPointOnCircle(startPoint);
         double endAngle = angleOfPointOnCircle(endPoint);
-        if (endAngle < startAngle) endAngle += Math.PI;
-        System.out.println(angleIncrement +  " " + startAngle + " " + endAngle);
-
-        for (double i = startAngle + angleIncrement; i < endAngle; i += angleIncrement) {
+        if (endAngle > startAngle) endAngle -= 2*Math.PI;
+        Log.log(angleIncrement + " " + startAngle + " " + endAngle);
+        for (double i = startAngle - angleIncrement; i > endAngle; i -= angleIncrement) {
             Point p = new Point(center.x + Math.cos(i)*radius, center.y + Math.sin(i)*radius);
+            Log.log("Arc point: " + p);
             vertices.add(p);
         }
     }

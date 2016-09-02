@@ -17,7 +17,7 @@ public class GeneralTests {
     }
     private static void testArcHull(CircularArc arc, double precision) {
         List<Point> hullPoints = new ArrayList<Point>();
-        arc.pushHullVertices(hullPoints, precision);
+        arc.pushAdditionalVertices(hullPoints, precision);
         hullPoints.add(arc.center);
         Log.listPoints(hullPoints);
     }

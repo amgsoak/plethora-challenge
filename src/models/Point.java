@@ -34,10 +34,12 @@ public class Point {
 
     public void normalize() {
         double length = getDistTo(ORIGIN);
+        x /= length;
+        y /= length;
     }
 
-    public Point getCCWPerpendicular() {
-        return new Point(y, x*-1);
+    public Point getCWPerpendicular() {
+        return new Point(y*-1, x);
     }
 
     public double dot(Point p) {

@@ -9,6 +9,7 @@ import java.util.List;
  * Created by Adam on 8/31/2016.
  */
 public class Log {
+    // Set to true to show debug logging
     public static boolean debug = false;
 
     public static void logMembers(Object obj) {
@@ -17,6 +18,11 @@ public class Log {
 
     public static void dLogMembers(Object obj) {
         if (debug) logMembers(obj);
+    }
+
+    public static void separator() {
+        log("=============");
+        log("");
     }
 
     public static void log(Object msg) {
@@ -57,10 +63,8 @@ public class Log {
     }
 
     public static void listPoints(List<Point> points) {
-        System.out.println();
         for (Point point : points) {
             System.out.println(point.x + "," + point.y);
         }
-        System.out.println();
     }
 }
