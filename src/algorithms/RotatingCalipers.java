@@ -47,21 +47,6 @@ public final class RotatingCalipers implements IMinRectGenerator {
         return lengthAB * lengthBC;
     }
 
-    public List<Point[]> getAllBoundingRectangles(int[] xs, int[] ys) throws IllegalArgumentException {
-
-        if(xs.length != ys.length) {
-            throw new IllegalArgumentException("xs and ys don't have the same size");
-        }
-
-        List<Point> points = new ArrayList<Point>();
-
-        for(int i = 0; i < xs.length; i++) {
-            points.add(new Point(xs[i], ys[i]));
-        }
-
-        return getAllBoundingRectangles(points);
-    }
-
     public List<Point[]> getAllBoundingRectangles(List<Point> convexHull) throws IllegalArgumentException {
 
         List<Point[]> rectangles = new ArrayList<Point[]>();
@@ -90,21 +75,6 @@ public final class RotatingCalipers implements IMinRectGenerator {
 
         return rectangles;
     }
-
-/*    public static Point[] getMinimumBoundingRectangle(int[] xs, int[] ys) throws IllegalArgumentException {
-
-        if(xs.length != ys.length) {
-            throw new IllegalArgumentException("xs and ys don't have the same size");
-        }
-
-        List<Point> points = new ArrayList<Point>();
-
-        for(int i = 0; i < xs.length; i++) {
-            points.add(new Point(xs[i], ys[i]));
-        }
-
-        return getMinimumBoundingRectangle(points);
-    }*/
 
     public Point[] getMinimumBoundingRectangle(List<Point> points) throws IllegalArgumentException {
 

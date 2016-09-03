@@ -1,6 +1,6 @@
 import algorithms.ActiveAlgs;
+import algorithms.ChanHull;
 import algorithms.GrahamScan;
-import algorithms.GrahamScan2;
 import algorithms.RotatingCalipers;
 import debug.Log;
 import tests.HullTester;
@@ -14,7 +14,7 @@ public class Main {
     private static ConfigValues config;
 
     public static void main(String[] args) {
-        Log.debug = true;
+//        Log.debug = true;
 
         // Load config
         config = new ConfigValues();
@@ -22,14 +22,15 @@ public class Main {
         Log.dLog(config);
 
         ActiveAlgs.grahamHullGenerator = new GrahamScan();
+//        ActiveAlgs.hullGenerator = new ChanHull();
         ActiveAlgs.minRectGenerator = new RotatingCalipers();
 
         if (args.length > 0) {
             String fileName = args[0];
             generateQuoteForFile(fileName);
         } else {
-//            runAll();
-            runTests();
+            runAll();
+//            runTests();
         }
 
         waitForEnter("Operation Complete");
@@ -40,7 +41,7 @@ public class Main {
         if (c != null) {
             if (message != null)
                 c.format(message, args);
-            c.format("\nPress ENTER to quit.\n");
+            c.format("\n\nPress ENTER to quit.\n");
             c.readLine();
         }
     }
@@ -64,18 +65,5 @@ public class Main {
     private static void runTests() {
         HullTester.test(config.dataDirPath);
 //        GeneralTests.testArcHulls();
-//        RectTester.test();
-    }
-
-    private static String loadInput(String filePath) {
-        return "";
-    }
-
-    /**
-     * Parse the xml string containing the edges and vertices
-     * @param xml
-     */
-    private static void parseEdgesAndVertices(String xml) {
-
     }
 }

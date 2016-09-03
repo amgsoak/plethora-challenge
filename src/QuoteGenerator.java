@@ -28,9 +28,7 @@ public class QuoteGenerator {
         // Determine the set of points to be used to calculate minimum rect size
         List<Point> vertices = fileData.generateEdgePoints();
 
-// TODO: Create more tests for graham/chan
-//TODO: Go back to chan hull if time. Needs to match graham hull in tests.
-//        List<Point> hullVertices = ChanHull.calcHull(vertices);
+//        List<Point> hullVertices = ActiveAlgs.getConvexHull(vertices);
         List<Point> hullVertices = ActiveAlgs.getGrahamHull(vertices);
 
         // Determine the size of the rectangle necessary to bound the hull in its most efficient orientation

@@ -4,7 +4,7 @@ import algorithms.ActiveAlgs;
 import debug.Log;
 import models.InputFileData;
 import models.Point;
-import tools.Utils;
+import tools.DUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,30 +64,12 @@ public class HullTester {
     public static boolean compareRects(Point[] rect1, Point[] rect2) {
         double[] size1 = getRectSize(rect1);
         double[] size2 = getRectSize(rect2);
-        boolean match = Utils.equalTo(size1[0], size2[0]) && Utils.equalTo(size1[1], size2[1]);
+        boolean match = DUtils.equalTo(size1[0], size2[0]) && DUtils.equalTo(size1[1], size2[1]);
         if (!match) {
             Log.log("Non-matching rects: " + Arrays.toString(size1) + " - " + Arrays.toString(size2));
         }
         return match;
     }
-
-    // Test chan hull against simpler graham hull
-/*    private static void test(Point[] points) {
-        List<Point> pointList = Arrays.asList(points);
-        List<Point> chanHull = ActiveAlgs.getConvexHull(pointList);
-        List<Point> grahamHull = ActiveAlgs.getGrahamHull(pointList);
-
-        boolean match = compareHulls(grahamHull, chanHull);
-
-        if (match) {
-            System.out.println("Matched hulls: " + chanHull);
-            System.out.println("");
-        } else {
-            System.out.println("Unmatched hulls.");
-            System.out.println("Graham hull: " + grahamHull);
-            System.out.println("");
-        }
-    }*/
 
     private static void testSetFromFile(String filePath) {
         InputFileData fileData = new InputFileData();

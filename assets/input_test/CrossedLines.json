@@ -1,0 +1,47 @@
+{
+    "Description": "Two crossed lines 45 degree slope. They extend further on one side of the intersection than the other.",
+    "ExpectedRect": "10x7.5",
+
+    "Edges": {
+        "0": {
+            "Type": "LineSegment",
+            "Vertices": [
+                0,
+                1
+            ]
+        },
+        "1": {
+            "Type": "LineSegment",
+            "Vertices": [
+                2,
+                3
+            ]
+        }
+    },
+    "Vertices": {
+        "0": {
+            "Position": {
+                "X": 0.0,
+                "Y": 0.0
+            }
+        },
+        "1": {
+            "Position": {
+                "X": 7.5,
+                "Y": 7.5
+            }
+        },
+        "2": {
+            "Position": {
+                "X": 0,
+                "Y": 10
+            }
+        },
+        "3": {
+            "Position": {
+                "X": 7.5,
+                "Y": 2.5
+            }
+        }
+    }
+}

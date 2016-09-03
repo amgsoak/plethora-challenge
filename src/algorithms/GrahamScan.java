@@ -26,7 +26,7 @@ package algorithms;
  */
 
 import models.Point;
-import tools.Utils;
+import tools.DUtils;
 
 import java.util.*;
 
@@ -136,7 +136,7 @@ public final class GrahamScan implements IHullGenerator {
 
             Point temp = points.get(i);
 
-            if(Utils.lessThan(temp.y, lowest.y) || (Utils.equalTo(temp.y, lowest.y) && Utils.lessThan(temp.x, lowest.x))) {
+            if(DUtils.lessThan(temp.y, lowest.y) || (DUtils.equalTo(temp.y, lowest.y) && DUtils.lessThan(temp.x, lowest.x))) {
                 lowest = temp;
             }
         }
@@ -169,10 +169,10 @@ public final class GrahamScan implements IHullGenerator {
                 double thetaA = Math.atan2(a.y - lowest.y, a.x - lowest.x);
                 double thetaB = Math.atan2(b.y - lowest.y, b.x - lowest.x);
 
-                if(Utils.lessThan(thetaA, thetaB)) {
+                if(DUtils.lessThan(thetaA, thetaB)) {
                     return -1;
                 }
-                else if(Utils.greaterThan(thetaA, thetaB)) {
+                else if(DUtils.greaterThan(thetaA, thetaB)) {
                     return 1;
                 }
                 else {
@@ -182,7 +182,7 @@ public final class GrahamScan implements IHullGenerator {
                     double distanceB = ((lowest.x - b.x) * (lowest.x - b.x)) +
                             ((lowest.y - b.y) * (lowest.y - b.y));
 
-                    if(Utils.lessThan(distanceA, distanceB)) {
+                    if(DUtils.lessThan(distanceA, distanceB)) {
                         return -1;
                     }
                     else {
@@ -219,8 +219,7 @@ public final class GrahamScan implements IHullGenerator {
     protected Turn getTurn(Point a, Point b, Point c) {
         double crossProduct = ((b.x - a.x) * (c.y - a.y)) -
                 ((b.y - a.y) * (c.x - a.x));
-// TODO: Had to convert this to handle doubles, but now it's doing direct double comparison
-        int comparison = Utils.compareTo(crossProduct, 0);
+        int comparison = DUtils.compareTo(crossProduct, 0);
         if(comparison > 0) {
             return Turn.COUNTER_CLOCKWISE;
         }

@@ -5,7 +5,7 @@ import models.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChanHull {
+public class ChanHull implements IHullGenerator {
     public static final int INF = 10000;
 
     /**
@@ -13,7 +13,7 @@ public class ChanHull {
      * @param points
      * @return
      */
-    public static List<Point> calcHull(List<Point> points) {
+    public List<Point> getConvexHull(List<Point> points) throws IllegalArgumentException {
         int n = points.size();
         // Iterate on powers of m, until it is at least as big as the size of the hull
         for (int t = 1; t < n; t++) {
@@ -26,7 +26,7 @@ public class ChanHull {
         return null;
     }
 
-    static private double getAngle(Point a, Point b, Point c) {
+    private double getAngle(Point a, Point b, Point c) {
         if (a == b || a == c || b == c) {
             return -INF;
         }
@@ -42,7 +42,7 @@ public class ChanHull {
         return Math.acos((Ax*Bx + Ay*By) / (modA * modB));
     }
 
-    static Point findMax(Point p0, Point p1, List<Point> l) {
+    Point findMax(Point p0, Point p1, List<Point> l) {
         Point qmax = l.get(0);
         double maxAngle = getAngle(p0, p1, qmax);
 
@@ -59,7 +59,8 @@ public class ChanHull {
         return qmax;
     }
 
-    static List<Point> hull(List<Point> points, int m) {
+
+    private List<Point> hull(List<Point> points, int m) {
         int n = points.size();
         int r = n / m;
 
