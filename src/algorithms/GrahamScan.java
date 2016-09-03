@@ -26,6 +26,7 @@ package algorithms;
  */
 
 import models.Point;
+import tools.Utils;
 
 import java.util.*;
 
@@ -61,35 +62,6 @@ public final class GrahamScan implements IHullGenerator {
         }
 
         return true;
-    }
-
-    /**
-     * Returns the convex hull of the points created from <code>xs</code>
-     * and <code>ys</code>. Note that the first and last point in the returned
-     * <code>List&lt;java.awt.Point&gt;</code> are the same point.
-     *
-     * @param xs the x coordinates.
-     * @param ys the y coordinates.
-     * @return   the convex hull of the points created from <code>xs</code>
-     *           and <code>ys</code>.
-     * @throws IllegalArgumentException if <code>xs</code> and <code>ys</code>
-     *                                  don't have the same size, if all points
-     *                                  are collinear or if there are less than
-     *                                  3 unique points present.
-     */
-    public List<Point> getConvexHull(int[] xs, int[] ys) throws IllegalArgumentException {
-
-        if(xs.length != ys.length) {
-            throw new IllegalArgumentException("xs and ys don't have the same size");
-        }
-
-        List<Point> points = new ArrayList<Point>();
-
-        for(int i = 0; i < xs.length; i++) {
-            points.add(new Point(xs[i], ys[i]));
-        }
-
-        return getConvexHull(points);
     }
 
     /**
@@ -164,7 +136,7 @@ public final class GrahamScan implements IHullGenerator {
 
             Point temp = points.get(i);
 
-            if(temp.y < lowest.y || (temp.y == lowest.y && temp.x < lowest.x)) {
+            if(Utils.lessThan(temp.y, lowest.y) || (Utils.equalTo(temp.y, lowest.y) && Utils.lessThan(temp.x, lowest.x))) {
                 lowest = temp;
             }
         }
@@ -194,26 +166,23 @@ public final class GrahamScan implements IHullGenerator {
                     return 0;
                 }
 
-                // use longs to guard against int-underflow
-                double thetaA = Math.atan2((long)a.y - lowest.y, (long)a.x - lowest.x);
-                double thetaB = Math.atan2((long)b.y - lowest.y, (long)b.x - lowest.x);
+                double thetaA = Math.atan2(a.y - lowest.y, a.x - lowest.x);
+                double thetaB = Math.atan2(b.y - lowest.y, b.x - lowest.x);
 
-                if(thetaA < thetaB) {
+                if(Utils.lessThan(thetaA, thetaB)) {
                     return -1;
                 }
-                else if(thetaA > thetaB) {
+                else if(Utils.greaterThan(thetaA, thetaB)) {
                     return 1;
                 }
                 else {
                     // collinear with the 'lowest' point, let the point closest to it come first
+                    double distanceA = ((lowest.x - a.x) * (lowest.x - a.x)) +
+                            ((lowest.y - a.y) * (lowest.y - a.y));
+                    double distanceB = ((lowest.x - b.x) * (lowest.x - b.x)) +
+                            ((lowest.y - b.y) * (lowest.y - b.y));
 
-                    // use longs to guard against int-over/underflow
-                    double distanceA = Math.sqrt((((long)lowest.x - a.x) * ((long)lowest.x - a.x)) +
-                            (((long)lowest.y - a.y) * ((long)lowest.y - a.y)));
-                    double distanceB = Math.sqrt((((long)lowest.x - b.x) * ((long)lowest.x - b.x)) +
-                            (((long)lowest.y - b.y) * ((long)lowest.y - b.y)));
-
-                    if(distanceA < distanceB) {
+                    if(Utils.lessThan(distanceA, distanceB)) {
                         return -1;
                     }
                     else {
@@ -248,15 +217,14 @@ public final class GrahamScan implements IHullGenerator {
      *         <code>c</code>.
      */
     protected Turn getTurn(Point a, Point b, Point c) {
-
-        // use longs to guard against int-over/underflow
         double crossProduct = ((b.x - a.x) * (c.y - a.y)) -
                 ((b.y - a.y) * (c.x - a.x));
 // TODO: Had to convert this to handle doubles, but now it's doing direct double comparison
-        if(crossProduct > 0) {
+        int comparison = Utils.compareTo(crossProduct, 0);
+        if(comparison > 0) {
             return Turn.COUNTER_CLOCKWISE;
         }
-        else if(crossProduct < 0) {
+        else if(comparison < 0) {
             return Turn.CLOCKWISE;
         }
         else {

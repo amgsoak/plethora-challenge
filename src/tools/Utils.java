@@ -1,12 +1,24 @@
 package tools;
 
-/**
- * Created by Adam on 9/2/2016.
- */
 public class Utils {
-    private static double defaultEpsilon = .000001;
-    public static boolean equal(double d1, double d2) {
+    private static double DEFAULT_EPSILON = .000001;
+
+    public static boolean equalTo(double d1, double d2) {
         double diff = Math.abs(d1 - d2);
-        return diff < defaultEpsilon;
+        return diff < DEFAULT_EPSILON;
+    }
+
+    public static boolean lessThan(double d1, double d2) {
+        return d1 < d2 && d2 - d1 > DEFAULT_EPSILON;
+    }
+
+    public static boolean greaterThan(double d1, double d2) {
+        return d1 > d2 && d1 - d2 > DEFAULT_EPSILON;
+    }
+
+    public static int compareTo(double d1, double d2) {
+        if(Math.abs(d1 - d2) < DEFAULT_EPSILON) return 0;
+        if (d1 > d2) return 1;
+        return -1;
     }
 }

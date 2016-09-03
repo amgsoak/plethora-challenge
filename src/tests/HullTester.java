@@ -1,9 +1,6 @@
 package tests;
 
 import algorithms.ActiveAlgs;
-import algorithms.ChanHull;
-import algorithms.GrahamScan;
-import algorithms.RotatingCalipers;
 import debug.Log;
 import models.InputFileData;
 import models.Point;
@@ -15,9 +12,11 @@ import java.util.List;
 
 public class HullTester {
     public static void test(String assetsDir) {
-        testSetFromFile(assetsDir+"CutCircularArc.json");
+        testSetFromFile(assetsDir + "CutCircularArc.json");
+        testSetFromFile(assetsDir + "ExtrudeCircularArc.json");
+        testSetFromFile(assetsDir + "Rectangle.json");
 
-        /*testSet("SQUARE_WITH_CENTER_PT",
+        testSet("SQUARE_WITH_CENTER_PT",
                 new Point[]{
                         new Point(0, 0),
                         new Point(10, 0),
@@ -34,11 +33,11 @@ public class HullTester {
                         new Point(5, 5),
                         new Point(0, 10)
                 }
-        );*/
+        );
     }
 
     /**
-     * Returns true only if the point sets contain equal points in the same order
+     * Returns true only if the point sets contain equalTo points in the same order
      * @param h1
      * @param h2
      * @return
@@ -65,7 +64,7 @@ public class HullTester {
     public static boolean compareRects(Point[] rect1, Point[] rect2) {
         double[] size1 = getRectSize(rect1);
         double[] size2 = getRectSize(rect2);
-        boolean match = Utils.equal(size1[0],size2[0]) && Utils.equal(size1[1], size2[1]);
+        boolean match = Utils.equalTo(size1[0], size2[0]) && Utils.equalTo(size1[1], size2[1]);
         if (!match) {
             Log.log("Non-matching rects: " + Arrays.toString(size1) + " - " + Arrays.toString(size2));
         }
