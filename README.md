@@ -13,6 +13,10 @@ The QuoteGenerator class will use the vertices to generate hull points using the
 Then the containing rect will be calculated using the implementation of Rotating Calipers found in ActiveAlgs.minRectGenerator.
 Using the values in the config file, the quote will be generated from this minimum rect and a simple calculation of total cutting time.
 
+I'm using modified third party code for the basic graham scan and rotating calipers algorithms.
+https://github.com/bkiers/RotatingCalipers
+https://github.com/bkiers/GrahamScan
+
 ### Complexity
 N = Total Vertices
 H = Number of Hull Vertices
