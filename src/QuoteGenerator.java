@@ -1,12 +1,8 @@
 import algorithms.ActiveAlgs;
 import debug.Log;
-import models.CircularArc;
-import models.Edge;
-import models.EdgeType;
-import models.Point;
+import models.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class QuoteGenerator {
@@ -20,7 +16,6 @@ public class QuoteGenerator {
         for (Edge edge : fileData.edges) {
             double speed = config.maxLaserSpeed;
             if (edge.type == EdgeType.Curved) {
-//TODO: Where to put logic of speed of cutting an arc?
                 CircularArc arc = (CircularArc)edge;
                 speed *= Math.exp(-1/arc.radius);
             }
@@ -31,15 +26,7 @@ public class QuoteGenerator {
         }
 
         // Determine the set of points to be used to calculate minimum rect size
-        ArrayList<Point> vertices = new ArrayList();
-        // Collect all endpoints
-        for (int key : fileData.idToVertex.keySet()) {
-            vertices.add(fileData.idToVertex.get(key));
-        }
-        // Collect all other edge vertices
-        for (Edge edge : fileData.edges) {
-            edge.pushAdditionalVertices(vertices, .01);
-        }
+        List<Point> vertices = fileData.generateEdgePoints();
 
 // TODO: Create more tests for graham/chan
 //TODO: Go back to chan hull if time. Needs to match graham hull in tests.

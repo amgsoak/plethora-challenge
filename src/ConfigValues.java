@@ -14,6 +14,7 @@ class ConfigValues {
     public float materialCost; // Dollars per square inch
     public float maxLaserSpeed; // Inches per second
     public float machineTimeCost; // Dollars per second
+    public String dataDirPath; // Relative location of data files
 
     public ConfigValues() {}
 
@@ -32,6 +33,7 @@ class ConfigValues {
             materialCost = getRequiredFloat(doc, "MATERIAL_COST");
             maxLaserSpeed = getRequiredFloat(doc, "LASER_SPEED");
             machineTimeCost = getRequiredFloat(doc, "MACHINE_TIME_COST");
+            dataDirPath = getRequiredString(doc, "DATA_FILE_DIRECTORY");
         } catch(Exception e) {
             throw new RuntimeException("Failed to parse config file at: " + filePath + ". " + e);
         }

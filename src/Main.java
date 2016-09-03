@@ -1,39 +1,36 @@
 import algorithms.ActiveAlgs;
+import algorithms.GrahamScan;
 import algorithms.GrahamScan2;
 import algorithms.RotatingCalipers;
 import debug.Log;
-import tests.RectTester;
+import tests.HullTester;
 
 import java.io.Console;
 import java.io.File;
 
 public class Main {
+    private static final String CONFIG_PATH = "assets/config.xml";
+    private static final String ASSETS_DIR_PATH = "assets/input/";
     private static ConfigValues config;
 
     public static void main(String[] args) {
-        ActiveAlgs.grahamHullGenerator = new GrahamScan2();
-        ActiveAlgs.minRectGenerator = new RotatingCalipers();
-//        ActiveAlgs.hullGenerator =
-
-        String configPath = "assets/config.xml";
-
-//        Log.debug = true;
+        Log.debug = true;
 
         // Load config
-//TODO: These should come via commandline arguments
         config = new ConfigValues();
-        config.load(configPath);
+        config.load(CONFIG_PATH);
         Log.dLog(config);
 
-//        runTests();
-        runAll();
+        ActiveAlgs.grahamHullGenerator = new GrahamScan();
+        ActiveAlgs.minRectGenerator = new RotatingCalipers();
 
-//        parseEdgesAndVertices(""); // Parse xml input data to vertex/edge data
-//        ArrayList<Vertex> hullVertices = null; // Get hull vertices from vertices/edges
-/*        try {
-            Thread.sleep(4000);
-        } catch(Exception e){}*/
-
+        if (args.length > 0) {
+            String fileName = args[0];
+            generateQuoteForFile(fileName);
+        } else {
+//            runAll();
+            runTests();
+        }
 
         waitForEnter("Operation Complete");
     }
@@ -49,26 +46,25 @@ public class Main {
     }
 
     private static void runAll() {
-        String assetsDirPath = "assets/input/";
-        File[] files = new File(assetsDirPath).listFiles();
+        File[] files = new File(ASSETS_DIR_PATH).listFiles();
         for (File file : files) {
             if (file.isFile()) {
                 String fileName = file.getName();
-                generateQuoteForFile(assetsDirPath + fileName);
+                generateQuoteForFile(fileName);
             }
         }
     }
 
-    private static float generateQuoteForFile(String filePath) {
+    private static float generateQuoteForFile(String fileName) {
         Log.separator();
-        Log.log("Generating quote for file: " + filePath);
-        return QuoteGenerator.getQuote(config, filePath);
+        Log.log("Generating quote for file: " + fileName);
+        return QuoteGenerator.getQuote(config, ASSETS_DIR_PATH + fileName);
     }
 
     private static void runTests() {
-//        HullTester.test();
+        HullTester.test(config.dataDirPath);
 //        GeneralTests.testArcHulls();
-        RectTester.test();
+//        RectTester.test();
     }
 
     private static String loadInput(String filePath) {

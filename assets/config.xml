@@ -4,4 +4,5 @@
     <MATERIAL_COST>.75</MATERIAL_COST> <!-- Dollars per square inch -->
     <LASER_SPEED>.5</LASER_SPEED> <!-- Inches per second -->
     <MACHINE_TIME_COST>.07</MACHINE_TIME_COST> <!-- Dollars per second -->
+    <DATA_FILE_DIRECTORY>assets/input/</DATA_FILE_DIRECTORY> <!-- Dollars per second -->
 </QUOTE_CONSTANTS>

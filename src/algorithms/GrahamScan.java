@@ -105,7 +105,6 @@ public final class GrahamScan implements IHullGenerator {
      *                                  are less than 3 unique points present.
      */
     public List<Point> getConvexHull(List<Point> points) throws IllegalArgumentException {
-
         List<Point> sorted = new ArrayList<Point>(getSortedPointSet(points));
 
         if(sorted.size() < 3) {
